@@ -4,6 +4,7 @@ import garden.comm.GardenStateMessage;
 import garden.comm.RabbitConnection;
 import garden.widgets.TitleImage;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.IOException;
@@ -61,6 +62,8 @@ public class GardenClient {
 		myFrame.setLayout(null);
 		myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		TitleImage t = new TitleImage();
+		
+		myFrame.getContentPane().setBackground(Color.GREEN);
 		
 		t.setLocation(0, 0);
 		t.setSize(80, HEIGHT - 30);

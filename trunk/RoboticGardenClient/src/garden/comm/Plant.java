@@ -1,6 +1,5 @@
 package garden.comm;
 
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -14,14 +13,14 @@ public class Plant {
 		RADISH, CORN, TOMATO
 	}
 
-	public static Image getImage(Type t) {
+	public static BufferedImage getImage(Type t) {
 		BufferedImage ret = null;
 		try {
 			switch (t) {
 			case RADISH:
 				ret = ImageIO.read(new File(
 						"images/plants/radishcherrybellesmall.jpg"));
-				
+				break;
 			case CORN:
 			case TOMATO:
 			default:
