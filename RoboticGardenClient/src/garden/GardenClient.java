@@ -1,13 +1,10 @@
 package garden;
 
-import garden.comm.GardenStateMessage;
 import garden.comm.RabbitConnection;
 import garden.widgets.TitleImage;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.io.IOException;
 import java.util.Vector;
 
 import javax.swing.JFrame;
@@ -38,7 +35,7 @@ public class GardenClient {
 		myFrame = new JFrame("Robotic Garden Monitoring Station");
 		_connection = new RabbitConnection();
 		// TODO communication _connection.connect("put the host name here.");
-		GardenStateMessage s = null;
+		//GardenStateMessage s = null;
 		/* TODO communication try {
 			s = _connection.getGardenState();
 		} catch (IOException e) {
@@ -47,7 +44,7 @@ public class GardenClient {
 			System.exit(0);
 		}
 		*/
-		initFrame(3/* TODO communication s.getNumPlanters()*/);
+		initFrame(2/* TODO communication s.getNumPlanters()*/);
 
 		myDialog = new InitDialog(this);
 		myDialog.setVisible(true);
@@ -62,20 +59,39 @@ public class GardenClient {
 		myFrame.setLayout(null);
 		myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		TitleImage t = new TitleImage();
-		
-		myFrame.getContentPane().setBackground(Color.GREEN);
-		
 		t.setLocation(0, 0);
 		t.setSize(80, HEIGHT - 30);
 		myFrame.add(t);
 		
+		
+		//
+		//JPanel planterPanel = new JPanel();
+		
+		//JScrollPane sp = new JScrollPane();
+
+		//sp.setLayout(null);
+		//planterPanel.setLayout(null);
+		
+		
+		//planterPanel.setLocation(0, 0);
+		//planterPanel.setSize(WIDTH - 150, HEIGHT * 20);
+		//planterPanel.setBackground(Color.GREEN);
 		for (int i = 0; i < numPlanters; i++) {
-			Planter p = new Planter();
-			p.setLocation(100, 10 + i * (10 + Planter.HEIGHT));
+			Planter p = new Planter(_connection);
+			p.setLocation(90, 10 + i * (10 + Planter.HEIGHT));
+			System.out.println(p.getSize());
+			System.out.println(p.getLocation());
 			myFrame.add(p);
 			_planters.add(p);
 		}
 		
+		
+		//sp.add(planterPanel);
+		//sp.setLocation(80, 0);
+		//sp.setPreferredSize(new Dimension(WIDTH - 100, HEIGHT - 30));
+		//sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		//myFrame.add(sp);
+		//System.out.println(sp.getSize());
 	}
 
 	public static void main(String[] args) {

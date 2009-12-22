@@ -16,7 +16,7 @@ public class GdhDisplay extends JComponent {
 
 	private float progress;
 	
-	public GdhDisplay(int progress) {
+	public GdhDisplay(float progress) {
 		this.progress = progress;
 	}
 	
@@ -32,6 +32,10 @@ public class GdhDisplay extends JComponent {
 		g2.setColor(Color.BLACK);
 		g2.setStroke(new BasicStroke(3));
 		g2.drawRect(0, 0, getWidth(), getHeight());
-		
+	}
+	
+	public void setProgress(float progress) {
+		this.progress = progress;
+		repaint();
 	}
 }
