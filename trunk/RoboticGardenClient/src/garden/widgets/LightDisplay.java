@@ -1,6 +1,6 @@
 package garden.widgets;
 
-import garden.comm.Moisture;
+import garden.comm.Light;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -10,18 +10,17 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JComponent;
 
-public class MoistureDisplay extends JComponent {
+public class LightDisplay extends JComponent {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 797170251587994961L;
-	
-	private float _moisture;
+	private static final long serialVersionUID = 4181889400309347009L;
 	private BufferedImage _image;
-	
-	public MoistureDisplay() {
-		_image = Moisture.getImage(0);
+	private Light.State type;
+
+	public LightDisplay() {
+		_image = Light.getIcon(Light.State.CLOUDY);
 	}
 
 	@Override
@@ -36,9 +35,9 @@ public class MoistureDisplay extends JComponent {
 
 	}
 	
-	public void setMoisture(float value) {
-		_moisture = value;
-		_image = Moisture.getImage(_moisture);
+	public void setLight(Light.State s) {
+		type = s;
+		_image = Light.getIcon(type);
 		repaint();
 	}
 }

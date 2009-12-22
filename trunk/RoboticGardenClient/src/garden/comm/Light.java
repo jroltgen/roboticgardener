@@ -12,7 +12,7 @@ public class Light {
 		SUNNY, PARTLY_CLOUDY, CLOUDY, DARK, NIGHT
 	}
 
-	public BufferedImage getIcon(State s) {
+	public static BufferedImage getIcon(State s) {
 		BufferedImage ret = null;
 		try {
 			switch (s) {

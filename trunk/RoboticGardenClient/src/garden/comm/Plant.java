@@ -36,4 +36,24 @@ public class Plant {
 
 		return ret;
 	}
+
+	public static String getText(Type t) {
+		String ret = null;
+		switch (t) {
+		case RADISH:
+			ret = "Radishes";
+			break;
+		case CORN:
+			ret = "Corn";
+			break;
+		case TOMATO:
+			ret = "Tomatoes";
+			break;
+		default:
+			System.err.println("No plant image found for " + t);
+			System.exit(0);
+			break;
+		}
+		return ret;
+	}
 }
