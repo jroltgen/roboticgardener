@@ -25,6 +25,9 @@ public class InitDialog extends JFrame implements ActionListener {
 	private JTextField input;
 
 	public InitDialog(GardenClient c) {
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		_client = c;
 		setLayout(null);
 		setLocation(GardenClient.SCREEN_SIZE.width / 2 - WIDTH / 2,
