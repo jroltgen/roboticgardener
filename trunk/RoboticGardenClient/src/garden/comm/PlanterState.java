@@ -3,14 +3,19 @@ package garden.comm;
 import utils.Converter;
 
 public class PlanterState {
+	
+	public static int MSG_LENGTH = 15;
+	
 	private float temperature; // in degrees F
 	private float moistureLevel; // Between 0 and 1
 	private float gdhProgress; // Between 0 and 1
-	private LightState lightState; // one of LightState.java
-	private PlantType plantType; // one of PlantType.java
+	private Light.State lightState; // one of LightState.java
+	private Plant.Type plantType; // one of PlantType.java
+	private int planterID; // a byte on the input stream.
 
-	public PlanterState(float temp, float moisture, float gdh, LightState ls,
-			PlantType p) {
+	public PlanterState(float temp, float moisture, float gdh, Light.State ls,
+			Plant.Type p, int id) {
+		planterID = id;
 		temperature = temp;
 		moistureLevel = moisture;
 		gdhProgress = gdh;
@@ -22,18 +27,20 @@ public class PlanterState {
 		byte temp[] = new byte[4];
 		
 		// Convert the message.
-		System.arraycopy(b, 0, temp, 0, 4);
+		planterID = (int)(b[0] & 0xFF);
+		
+		System.arraycopy(b, 1, temp, 0, 4);
 		temperature = Float.intBitsToFloat(Converter.byteArrayToInt(temp));
 		
-		System.arraycopy(b, 4, temp, 0, 4);
+		System.arraycopy(b, 5, temp, 0, 4);
 		moistureLevel = Float.intBitsToFloat(Converter.byteArrayToInt(temp));
 		
-		System.arraycopy(b, 8, temp, 0, 4);
+		System.arraycopy(b, 9, temp, 0, 4);
 		gdhProgress = Float.intBitsToFloat(Converter.byteArrayToInt(temp));
 		
-		lightState = LightState.values()[(int)(b[12] & 0xFF)];
+		lightState = Light.State.values()[(int)(b[13] & 0xFF)];
 		
-		plantType = PlantType.values()[(int)(b[13] & 0xFF)];
+		plantType = Plant.Type.values()[(int)(b[14] & 0xFF)];
 	}
 
 	public float getTemperature() {
@@ -52,19 +59,19 @@ public class PlanterState {
 		this.moistureLevel = moistureLevel;
 	}
 
-	public LightState getLightState() {
+	public Light.State getLightState() {
 		return lightState;
 	}
 
-	public void setLightState(LightState lightState) {
+	public void setLightState(Light.State lightState) {
 		this.lightState = lightState;
 	}
 
-	public PlantType getPlantType() {
+	public Plant.Type getPlantType() {
 		return plantType;
 	}
 
-	public void setPlantType(PlantType plantType) {
+	public void setPlantType(Plant.Type plantType) {
 		this.plantType = plantType;
 	}
 
@@ -74,5 +81,13 @@ public class PlanterState {
 
 	public void setGdhProgress(float gdhProgress) {
 		this.gdhProgress = gdhProgress;
+	}
+	
+	public int getID() {
+		return planterID;
+	}
+	
+	public void setID(int id) {
+		this.planterID = id;
 	}
 }
