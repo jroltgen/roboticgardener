@@ -35,7 +35,7 @@ public class GardenClient {
 	}
 
 	private void run() {
-		myFrame = new JFrame("Robotic Garden");
+		myFrame = new JFrame("Robotic Garden Monitoring Station");
 		_connection = new RabbitConnection();
 		// TODO communication _connection.connect("put the host name here.");
 		GardenStateMessage s = null;
