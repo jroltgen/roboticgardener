@@ -35,7 +35,7 @@ public class TemperatureDisplay extends JComponent {
 		g2.setColor(Color.WHITE);
 		g2.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
 		g2.drawString("Temp:", 8, getHeight() - 30);
-		g2.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 18));
+		g2.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 15));
 		g2.drawString((int) _currentTemp + "."
 				+ (((int) (_currentTemp * 10)) % 10) + '\u00b0', 5, getHeight() - 10);
 	}

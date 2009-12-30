@@ -5,10 +5,13 @@ import java.util.Vector;
 public class GardenStateMessage {
 
 	private int numPlanters;
+	private float waterLevel;
 	private Vector<PlanterState> planterStates;
-	
-	public GardenStateMessage(int numPlanters, Vector<PlanterState> ps) {
+
+	public GardenStateMessage(int numPlanters, float waterLevel,
+			Vector<PlanterState> ps) {
 		this.numPlanters = numPlanters;
+		this.waterLevel = waterLevel;
 		planterStates = ps;
 	}
 
@@ -18,5 +21,9 @@ public class GardenStateMessage {
 
 	public Vector<PlanterState> getPlanterStates() {
 		return planterStates;
+	}
+	
+	public float getWaterLevel() {
+		return waterLevel;
 	}
 }
