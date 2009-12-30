@@ -10,19 +10,19 @@ public class Plant {
 
 	public static enum Type {
 		// TODO add more of these.
-		RADISH, CORN, TOMATO
+		RADISHES, CORN, TOMATOES
 	}
 
 	public static BufferedImage getImage(Type t) {
 		BufferedImage ret = null;
 		try {
 			switch (t) {
-			case RADISH:
+			case RADISHES:
 				ret = ImageIO.read(new File(
 						"images/plants/radishcherrybellesmall.jpg"));
 				break;
 			case CORN:
-			case TOMATO:
+			case TOMATOES:
 			default:
 				System.err.println("No plant image found for " + t);
 				System.exit(0);
@@ -40,13 +40,13 @@ public class Plant {
 	public static String getText(Type t) {
 		String ret = null;
 		switch (t) {
-		case RADISH:
+		case RADISHES:
 			ret = "Radishes";
 			break;
 		case CORN:
 			ret = "Corn";
 			break;
-		case TOMATO:
+		case TOMATOES:
 			ret = "Tomatoes";
 			break;
 		default:

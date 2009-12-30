@@ -24,8 +24,8 @@ public class TemperatureDisplay extends JComponent {
 	@Override
 	protected void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
+		
 		g2.setColor(new Color(255, 128, 0));
-		//g2.setColor(Color.ORANGE);
 		g2.fillRect(0, 0, getWidth(), getHeight());
 
 		g2.setColor(Color.BLACK);
@@ -38,5 +38,10 @@ public class TemperatureDisplay extends JComponent {
 		g2.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 18));
 		g2.drawString((int) _currentTemp + "."
 				+ (((int) (_currentTemp * 10)) % 10) + '\u00b0', 5, getHeight() - 10);
+	}
+	
+	public void setTemperature(float temp) {
+		_currentTemp = temp;
+		repaint();
 	}
 }

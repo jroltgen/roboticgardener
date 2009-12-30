@@ -38,13 +38,13 @@ public class Planter extends JPanel {
 	private JLabel plantTypeText;
 	private RabbitConnection _connection;
 	
-	public Planter(RabbitConnection rc) {
+	public Planter(RabbitConnection rc, int id) {
 		_connection = rc;
 		initPanel();
+		planterID = id;
 	}
 
 	private void initPanel() {
-		// TODO Auto-generated method stub
 		setSize(WIDTH, HEIGHT);
 		setLayout(null);
 		
@@ -55,14 +55,14 @@ public class Planter extends JPanel {
 		add(planterText);
 		
 		plantTypeText = new JLabel("Unnamed palnt");
-		plantTypeText.setText(Plant.getText(Plant.Type.RADISH));
+		plantTypeText.setText(Plant.getText(Plant.Type.RADISHES));
 		plantTypeText.setLocation(100, 45);
 		plantTypeText.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
 		plantTypeText.setSize(WIDTH - 20, 20);
 		add(plantTypeText);
 		
 		_plantTypeDisplay = new PlantTypeDisplay();
-		_plantTypeDisplay.setPlantType(Plant.Type.RADISH);
+		_plantTypeDisplay.setPlantType(Plant.Type.RADISHES);
 		_plantTypeDisplay.setLocation(20, 20);
 		_plantTypeDisplay.setSize(60, 60);
 		add(_plantTypeDisplay);
@@ -126,13 +126,11 @@ public class Planter extends JPanel {
 	}
 	
 	private void forceWater() {
-		// TODO Auto-generated method stub
 		
 		System.out.println("Watering");
 		try {
 			_connection.water(planterID);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.exit(0);
 		}
@@ -140,20 +138,25 @@ public class Planter extends JPanel {
 	
 	public void updateState(PlanterState s) {
 		planterText.setText("Planter " + s.getID());
-		
+		plantTypeText.setText(s.getPlantType().name());
+		_gdhDisplay.setProgress(s.getGdhProgress());
+		_lightDisplay.setLight(s.getLightState());
+		_moistureDisplay.setMoisture(s.getMoistureLevel());
+		_plantTypeDisplay.setPlantType(s.getPlantType());
+		_temperatureDisplay.setTemperature(s.getTemperature());
 	}
 
 	private void replant() {
-		// TODO Auto-generated method stub
 		System.out.println("Replanting");
 		try {
 			_connection.replant(planterID);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.exit(0);
 		}
 	}
 	
-	
+	public int getPlanterID() {
+		return planterID;
+	}
 }
