@@ -39,7 +39,7 @@ public class WaterBucketDisplay extends JComponent {
 		// Draw border.
 		g2.setColor(Color.BLACK);
 		g2.setStroke(new BasicStroke(5));
-		g2.drawRect(0, 0, getWidth() - 2, getHeight() - 2);
+		g2.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
 		
 		g2.rotate(-Math.PI / 2);
 		g2.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));

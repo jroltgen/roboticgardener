@@ -31,7 +31,7 @@ public class GdhDisplay extends JComponent {
 		// Draw border.
 		g2.setColor(Color.BLACK);
 		g2.setStroke(new BasicStroke(3));
-		g2.drawRect(0, 0, getWidth(), getHeight());
+		g2.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
 	}
 	
 	public void setProgress(float progress) {

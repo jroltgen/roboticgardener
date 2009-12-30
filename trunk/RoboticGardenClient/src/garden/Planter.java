@@ -25,7 +25,7 @@ public class Planter extends JPanel {
 	 */
 	private static final long serialVersionUID = -127271935278457306L;
 	
-	public static int WIDTH = 400;
+	public static int WIDTH = 410;
 	public static int HEIGHT = 200;
 
 	private PlantTypeDisplay _plantTypeDisplay;
@@ -49,15 +49,15 @@ public class Planter extends JPanel {
 		setLayout(null);
 		
 		planterText = new JLabel("Window Planter #3");
-		planterText.setLocation(100, 20);
-		planterText.setFont(new Font(Font.SERIF, Font.BOLD, 18));
+		planterText.setLocation(100, 22);
+		planterText.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 18));
 		planterText.setSize(WIDTH - 20, 20);
 		add(planterText);
 		
 		plantTypeText = new JLabel("Unnamed palnt");
 		plantTypeText.setText(Plant.getText(Plant.Type.RADISH));
-		plantTypeText.setLocation(100, 50);
-		plantTypeText.setFont(new Font(Font.SERIF, Font.PLAIN, 18));
+		plantTypeText.setLocation(100, 45);
+		plantTypeText.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
 		plantTypeText.setSize(WIDTH - 20, 20);
 		add(plantTypeText);
 		
@@ -67,35 +67,35 @@ public class Planter extends JPanel {
 		_plantTypeDisplay.setSize(60, 60);
 		add(_plantTypeDisplay);
 		
-		JLabel gdhLabel = new JLabel("GDH PROGRESS: ");
-		gdhLabel.setLocation(20, 95);
-		gdhLabel.setFont(new Font(Font.SERIF, Font.PLAIN, 14));
-		gdhLabel.setSize(WIDTH - 50, 15);
+		JLabel gdhLabel = new JLabel("GDH Progress: ");
+		gdhLabel.setLocation(20, 92);
+		gdhLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
+		gdhLabel.setSize(WIDTH - 50, 20);
 		add(gdhLabel);
 		
 		_gdhDisplay = new GdhDisplay(0.3f);
-		_gdhDisplay.setLocation(150, 95);
-		_gdhDisplay.setSize(WIDTH - 180, 15);
+		_gdhDisplay.setLocation(130, 95);
+		_gdhDisplay.setSize(180, 15);
 		add(_gdhDisplay);
 		
 		_temperatureDisplay = new TemperatureDisplay(69.3f);
-		_temperatureDisplay.setLocation(20, 130);
+		_temperatureDisplay.setLocation(345, 15);
 		_temperatureDisplay.setSize(50, 50);
 		add(_temperatureDisplay);
 		
 		_lightDisplay = new LightDisplay();
-		_lightDisplay.setLocation(90, 130);
+		_lightDisplay.setLocation(345, 75);
 		_lightDisplay.setSize(50, 50);
 		add(_lightDisplay);
 		
 		_moistureDisplay = new MoistureDisplay();
-		_moistureDisplay.setLocation(160, 130);
+		_moistureDisplay.setLocation(345, 135);
 		_moistureDisplay.setSize(50, 50);
 		add(_moistureDisplay);
 		
 		JButton waterButton = new JButton("Water");
-		waterButton.setLocation(215, 130);
-		waterButton.setSize(90, 50);
+		waterButton.setLocation(65, 145);
+		waterButton.setSize(100, 30);
 		waterButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				forceWater();
@@ -104,8 +104,8 @@ public class Planter extends JPanel {
 		add(waterButton);
 		
 		JButton replantButton = new JButton("Replant");
-		replantButton.setLocation(305, 130);
-		replantButton.setSize(90, 50);
+		replantButton.setLocation(180, 145);
+		replantButton.setSize(100, 30);
 		replantButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				replant();
@@ -122,7 +122,7 @@ public class Planter extends JPanel {
 		g2.fillRect(0, 0, getWidth(), getHeight());
 		g2.setColor(Color.BLACK);
 		g2.setStroke(new BasicStroke(5));
-		g2.drawRect(0, 0, getWidth(), getHeight());
+		g2.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
 	}
 	
 	private void forceWater() {
