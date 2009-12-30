@@ -95,8 +95,8 @@ public class GardenClient {
 		}
 		
 		WaterBucketDisplay w= new WaterBucketDisplay(true);
-		w.setSize(100, 400);
-		w.setLocation(505, 10);
+		w.setSize(100, 425);
+		w.setLocation(515, 10);
 		myFrame.add(w);
 		
 		

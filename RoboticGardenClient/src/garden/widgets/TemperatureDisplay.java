@@ -24,7 +24,8 @@ public class TemperatureDisplay extends JComponent {
 	@Override
 	protected void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
-		g2.setColor(Color.BLUE);
+		g2.setColor(new Color(255, 128, 0));
+		//g2.setColor(Color.ORANGE);
 		g2.fillRect(0, 0, getWidth(), getHeight());
 
 		g2.setColor(Color.BLACK);
