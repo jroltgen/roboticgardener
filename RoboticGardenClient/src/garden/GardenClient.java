@@ -17,6 +17,8 @@ public class GardenClient {
 
 	public static final int PORT = 3107;
 
+	protected static final long UPDATE_RATE = 2000;
+
 	public static Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit()
 			.getScreenSize();
 	
@@ -27,9 +29,8 @@ public class GardenClient {
 	private InitDialog myDialog;
 	private JFrame myFrame;
 	private Vector<Planter> _planters;
+	
 	// TODO add scroll pane eventually.
-	
-	
 
 	public GardenClient() {
 		_planters = new Vector<Planter>();
@@ -40,24 +41,22 @@ public class GardenClient {
 		System.out.println("Creating connection");
 		_connection = new RabbitConnection();
 		
-		//_connection.connect("129.186.194.31");
 		GardenStateMessage s = null;
-//		try {
-//		//	s = _connection.getGardenState();
-//		} catch (IOException e) {
-//			System.err.println("Error retreiving garden state.");
-//			e.printStackTrace();
-//			System.exit(0);
-//		}
+		try {
+			s = _connection.getGardenState();
+		} catch (IOException e) {
+			System.err.println("Error retreiving garden state.");
+			e.printStackTrace();
+			System.exit(0);
+		}
 		
-		initFrame(3/*s.getNumPlanters()*/);
+		initFrame(s);
 		System.out.println("Running");
 		myDialog = new InitDialog(this);
 		myDialog.setVisible(true);
 	}
 
-	private void initFrame(int numPlanters) {
-		// TODO Auto-generated method stub
+	private void initFrame(GardenStateMessage msg) {
 		myFrame.setSize(WIDTH, HEIGHT);
 		myFrame.setLocation(SCREEN_SIZE.width / 2 - WIDTH / 2,
 				SCREEN_SIZE.height / 2 - HEIGHT / 2);
@@ -85,8 +84,9 @@ public class GardenClient {
 		//planterPanel.setLocation(0, 0);
 		//planterPanel.setSize(WIDTH - 150, HEIGHT * 20);
 		//planterPanel.setBackground(Color.GREEN);
-		for (int i = 0; i < numPlanters; i++) {
-			Planter p = new Planter(_connection);
+		for (int i = 0; i < msg.getNumPlanters(); i++) {
+			Planter p = new Planter(_connection, msg.getPlanterStates().get(i).getID());
+			p.updateState(msg.getPlanterStates().get(i));
 			p.setLocation(90, 10 + i * (10 + Planter.HEIGHT));
 			System.out.println(p.getSize());
 			System.out.println(p.getLocation());
@@ -113,16 +113,58 @@ public class GardenClient {
 	}
 
 	public boolean connectToGarden(String host) {
-		// TODO communication boolean success = _connection.connect(host);
-		boolean success = true;
+		boolean success;
+		if (host != null) {
+			success = _connection.connect(host);
+		} else {
+			// Default IP to connect to.
+			success = _connection.connect("129.186.194.31");
+		} 
 		if (!success) {
 			return false;
 		} else {
 			myDialog.setVisible(false);
 			myDialog = null;
 			myFrame.setVisible(true);
+			startUpdating();
 			return true;
 		}
 	}
+
+	private void startUpdating() {
+		Thread t = new Thread(new Runnable() {
+			public void run() {
+				while(true) {
+					updateState();
+					try {
+						Thread.sleep(UPDATE_RATE);
+					} catch (InterruptedException e) {
+						System.err.println("Update thread interrupted.");
+						e.printStackTrace();
+						System.exit(0);
+					}
+				}
+			}
+		});
+		t.start();
+	}
+
+	private void updateState() {
+		GardenStateMessage msg = null;
+		try {
+			msg = _connection.getGardenState();
+		} catch (IOException e) {
+			System.err.println("IOException in update state");
+			e.printStackTrace();
+		}
+		for (int i = 0; i < msg.getNumPlanters(); i++) {
+			for (Planter p : _planters) {
+				if (p.getPlanterID() == msg.getPlanterStates().get(i).getID()) {
+					p.updateState(msg.getPlanterStates().get(i));
+				}
+			}
+		}
+	}
+		
 
 }

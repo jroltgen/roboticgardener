@@ -60,9 +60,9 @@ public class RabbitConnection {
 
 		// Get the number of planters
 		int numPlanters = (int) (_input.readByte() & 0xFF);
-
+		System.out.println("Connection received the planter state");
 		Vector<PlanterState> states = new Vector<PlanterState>();
-		byte[] buf = new byte[14];
+		byte[] buf = new byte[PlanterState.MSG_LENGTH];
 
 		for (int i = 0; i < numPlanters; i++) {
 			_input.read(buf, 0, PlanterState.MSG_LENGTH);

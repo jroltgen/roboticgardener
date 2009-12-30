@@ -60,8 +60,8 @@ public class InitDialog extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		if (_client.connectToGarden(input.getText())) {
+		String host = (input.getText() == "") ? null : input.getText();
+		if (_client.connectToGarden(host)) {
 			// Hooray! The Client will dispose of us.
 		} else {
 			JOptionPane.showMessageDialog(null, "Couldn't connect to garden. "

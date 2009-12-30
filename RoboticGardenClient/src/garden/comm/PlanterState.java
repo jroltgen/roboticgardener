@@ -1,10 +1,8 @@
 package garden.comm;
 
-import utils.Converter;
-
 public class PlanterState {
 	
-	public static int MSG_LENGTH = 15;
+	public static int MSG_LENGTH = 6;
 	
 	private float temperature; // in degrees F
 	private float moistureLevel; // Between 0 and 1
@@ -24,23 +22,13 @@ public class PlanterState {
 	}
 
 	public PlanterState(byte[] b) {
-		byte temp[] = new byte[4];
-		
 		// Convert the message.
 		planterID = (int)(b[0] & 0xFF);
-		
-		System.arraycopy(b, 1, temp, 0, 4);
-		temperature = Float.intBitsToFloat(Converter.byteArrayToInt(temp));
-		
-		System.arraycopy(b, 5, temp, 0, 4);
-		moistureLevel = Float.intBitsToFloat(Converter.byteArrayToInt(temp));
-		
-		System.arraycopy(b, 9, temp, 0, 4);
-		gdhProgress = Float.intBitsToFloat(Converter.byteArrayToInt(temp));
-		
-		lightState = Light.State.values()[(int)(b[13] & 0xFF)];
-		
-		plantType = Plant.Type.values()[(int)(b[14] & 0xFF)];
+		temperature = (int)(b[1] & 0xFF) - 80;
+		moistureLevel = ((int)(b[2] & 0xFF) == 0) ? 0 : 1;
+		gdhProgress = (int)(b[3] & 0xFF) / 255.0f;
+		lightState = Light.State.values()[(int)(b[4] & 0xFF)];
+		plantType = Plant.Type.values()[(int)(b[5] & 0xFF)];
 	}
 
 	public float getTemperature() {
