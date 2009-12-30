@@ -123,7 +123,6 @@ public class Planter extends JPanel {
 		g2.setColor(Color.BLACK);
 		g2.setStroke(new BasicStroke(5));
 		g2.drawRect(0, 0, getWidth(), getHeight());
-		System.out.println("painting...");
 	}
 	
 	private void forceWater() {

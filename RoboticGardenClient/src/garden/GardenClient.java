@@ -1,10 +1,14 @@
 package garden;
 
+import garden.comm.GardenStateMessage;
 import garden.comm.RabbitConnection;
 import garden.widgets.TitleImage;
+import garden.widgets.WaterBucketDisplay;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.IOException;
 import java.util.Vector;
 
 import javax.swing.JFrame;
@@ -33,19 +37,21 @@ public class GardenClient {
 
 	private void run() {
 		myFrame = new JFrame("Robotic Garden Monitoring Station");
+		System.out.println("Creating connection");
 		_connection = new RabbitConnection();
-		// TODO communication _connection.connect("put the host name here.");
-		//GardenStateMessage s = null;
-		/* TODO communication try {
-			s = _connection.getGardenState();
-		} catch (IOException e) {
-			System.err.println("Error retreiving garden state.");
-			e.printStackTrace();
-			System.exit(0);
-		}
-		*/
-		initFrame(2/* TODO communication s.getNumPlanters()*/);
-
+		
+		//_connection.connect("129.186.194.31");
+		GardenStateMessage s = null;
+//		try {
+//		//	s = _connection.getGardenState();
+//		} catch (IOException e) {
+//			System.err.println("Error retreiving garden state.");
+//			e.printStackTrace();
+//			System.exit(0);
+//		}
+		
+		initFrame(3/*s.getNumPlanters()*/);
+		System.out.println("Running");
 		myDialog = new InitDialog(this);
 		myDialog.setVisible(true);
 	}
@@ -58,6 +64,9 @@ public class GardenClient {
 		
 		myFrame.setLayout(null);
 		myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		myFrame.getContentPane().setBackground(new Color(10, 115, 10));
+		
 		TitleImage t = new TitleImage();
 		t.setLocation(0, 0);
 		t.setSize(80, HEIGHT - 30);
@@ -84,6 +93,11 @@ public class GardenClient {
 			myFrame.add(p);
 			_planters.add(p);
 		}
+		
+		WaterBucketDisplay w= new WaterBucketDisplay(true);
+		w.setSize(100, 400);
+		w.setLocation(505, 10);
+		myFrame.add(w);
 		
 		
 		//sp.add(planterPanel);
