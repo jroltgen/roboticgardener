@@ -53,14 +53,20 @@ public class RabbitConnection {
 		byte b = _input.readByte();
 		MessageTypes.Incoming type = MessageTypes.Incoming
 				.values()[(int) (b & 0xFF)];
-		if (type != MessageTypes.Incoming.GARDEN_STATE) {
-			System.err.println("Incorrect message received: type : " + type);
-			System.exit(0);
+		if (type == MessageTypes.Incoming.GARDEN_STATE) {
+			// Great!
+		} else if (type == MessageTypes.Incoming.ERROR) {
+			// Oh noez.  Don't read anything else.
+			return null;
 		}
 
 		// Get the number of planters
 		int numPlanters = (int) (_input.readByte() & 0xFF);
 		System.out.println("Connection received the planter state");
+		
+		// Get the water level.
+		int waterLevel = (int) (_input.readByte() & 0xFF);
+		
 		Vector<PlanterState> states = new Vector<PlanterState>();
 		byte[] buf = new byte[PlanterState.MSG_LENGTH];
 
@@ -69,7 +75,7 @@ public class RabbitConnection {
 			states.add(new PlanterState(buf));
 		}
 
-		return new GardenStateMessage(numPlanters, states);
+		return new GardenStateMessage(numPlanters, waterLevel / 255.0f, states);
 	}
 
 	public void water(int planterID) throws IOException {

@@ -67,7 +67,7 @@ public class Planter extends JPanel {
 		_plantTypeDisplay.setSize(60, 60);
 		add(_plantTypeDisplay);
 		
-		JLabel gdhLabel = new JLabel("GDH Progress: ");
+		JLabel gdhLabel = new JLabel("GDD Progress: ");
 		gdhLabel.setLocation(20, 92);
 		gdhLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
 		gdhLabel.setSize(WIDTH - 50, 20);

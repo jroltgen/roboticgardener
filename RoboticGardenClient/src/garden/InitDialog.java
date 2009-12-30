@@ -60,7 +60,7 @@ public class InitDialog extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		String host = (input.getText() == "") ? null : input.getText();
+		String host = (input.getText() == null) ? null : input.getText();
 		if (_client.connectToGarden(host)) {
 			// Hooray! The Client will dispose of us.
 		} else {
