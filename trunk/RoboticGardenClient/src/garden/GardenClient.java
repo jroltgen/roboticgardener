@@ -73,10 +73,10 @@ public class GardenClient {
 		// planterPanel.setLocation(0, 0);
 		// planterPanel.setSize(WIDTH - 150, HEIGHT * 20);
 		// planterPanel.setBackground(Color.GREEN);
-		for (int i = 0; i < 2/*TODO connmsg.getNumPlanters()*/; i++) {
-			Planter p = new Planter(_connection, 0/*msg.getPlanterStates().get(i)
-					.getID()*/);
-			p.updateState(null/*msg.getPlanterStates().get(i)*/);
+		for (int i = 0; i < msg.getNumPlanters(); i++) {
+			Planter p = new Planter(_connection, msg.getPlanterStates().get(i)
+					.getID());
+			p.updateState(msg.getPlanterStates().get(i));
 			p.setLocation(90, 10 + i * (10 + Planter.HEIGHT));
 			System.out.println(p.getSize());
 			System.out.println(p.getLocation());
@@ -107,8 +107,7 @@ public class GardenClient {
 		// success = _connection.connect(host);
 		// } else {
 		// Default IP to connect to.
-		// TODO connection: success = _connection.connect("129.186.194.31");
-		success = true;
+		success = _connection.connect("129.186.194.31");
 		// }
 		if (!success) {
 			return false;
@@ -116,20 +115,20 @@ public class GardenClient {
 			myDialog.setVisible(false);
 			myDialog = null;
 			GardenStateMessage s = null;
-//			try {
-//				s = _connection.getGardenState();
-//			} catch (IOException e) {
-//				System.err.println("Error retreiving garden state.");
-//				e.printStackTrace();
-//				System.exit(0);
-//			}
-//			if (s == null) {
-//				throw new RuntimeException("Rotten luck.  The first message "
-//						+ "failed.  Try starting it again.");
-//			}
+			try {
+				s = _connection.getGardenState();
+			} catch (IOException e) {
+				System.err.println("Error retreiving garden state.");
+				e.printStackTrace();
+				System.exit(0);
+			}
+			if (s == null) {
+				throw new RuntimeException("Rotten luck.  The first message "
+						+ "failed.  Try starting it again.");
+			}
 			initFrame(s);
 			myFrame.setVisible(true);
-//			startUpdating();
+			startUpdating();
 			return true;
 		}
 	}
@@ -174,7 +173,6 @@ public class GardenClient {
 	}
 
 	public void replant(int planterNum, Type type) throws IOException {
-		// TODO Auto-generated method stub
 		_connection.replant(planterNum, type);
 	}
 
