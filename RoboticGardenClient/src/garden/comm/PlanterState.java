@@ -24,9 +24,14 @@ public class PlanterState {
 	public PlanterState(byte[] b) {
 		// Convert the message.
 		planterID = (int) (b[0] & 0xFF);
-		temperature = (int) (b[1] & 0xFF) - 80;
+		System.out.println("------------\nPlanterID: " + planterID);
+		temperature = (int) ((b[1] & 0xFF) * 1.96);
+		System.out.println("Temp: " + b[1]);
 		moistureLevel = ((int) (b[2] & 0xFF) == 0) ? 0 : 1;
+		System.out.println("Moisture: " + b[2]);
+		System.out.println("Received GDH: " + b[3]);
 		gdhProgress = (int) (b[3] & 0xFF) / 255.0f;
+		System.out.println("Light: " + b[4]);
 		lightState = Light.State.values()[(int) (b[4] & 0xFF)
 				* Light.State.values().length / 255];
 		plantType = Plant.Type.values()[(int) (b[5] & 0xFF)];

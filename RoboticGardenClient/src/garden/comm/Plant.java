@@ -30,6 +30,7 @@ public class Plant {
 			case TOMATOES:
 				ret = ImageIO.read(new File(
 						"images/plants/tomato.jpg"));
+				break;
 			default:
 				System.err.println("No plant image found for " + t);
 				System.exit(0);

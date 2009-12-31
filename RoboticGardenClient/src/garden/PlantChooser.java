@@ -27,11 +27,13 @@ public class PlantChooser {
 
 	private static RabbitConnection _connection;
 	private static int planterNum;
+	
+	private static JFrame frame;
 
 	public static void choosePlant(int p, RabbitConnection callback) {
 		_connection = callback;
 		planterNum = p;
-		JFrame frame = new JFrame("Plant Chooser");
+		frame = new JFrame("Plant Chooser");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		// Create and set up the content pane.
@@ -100,6 +102,7 @@ public class PlantChooser {
 					e1.printStackTrace();
 					System.exit(0);
 				}
+				frame.dispose();
 			}
 		}
 
