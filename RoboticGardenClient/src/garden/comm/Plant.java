@@ -15,20 +15,6 @@ public class Plant {
 		TOMATOES
 	}
 
-	/**
-	 * This must match the Type enum for the growing degree days for 
-	 * the respective plants.
-	 */
-	private float[] gdds = new float[] {
-		21,
-		160,
-		160
-	};
-	
-	public float getGDDHours(Type t) {
-		return gdds[t.ordinal()];
-	}
-
 	public static BufferedImage getImage(Type t) {
 		BufferedImage ret = null;
 		try {
