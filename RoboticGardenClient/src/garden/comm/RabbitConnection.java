@@ -1,6 +1,7 @@
 package garden.comm;
 
 import garden.GardenClient;
+import garden.comm.Plant.Type;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -83,8 +84,9 @@ public class RabbitConnection {
 		_output.writeByte(planterID);
 	}
 	
-	public void replant(int planterID) throws IOException {
+	public void replant(int planterID, Type type) throws IOException {
 		_output.writeByte(MessageTypes.Outgoing.REPLANT.ordinal());
 		_output.writeByte(planterID);
+		_output.writeByte(type.ordinal());
 	}
 }
