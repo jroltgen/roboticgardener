@@ -87,5 +87,6 @@ public class RabbitConnection {
 	public void replant(int planterID, Type type) throws IOException {
 		_output.writeByte(MessageTypes.Outgoing.REPLANT.ordinal());
 		_output.writeByte(planterID);
+		_output.writeByte(type.ordinal());
 	}
 }
