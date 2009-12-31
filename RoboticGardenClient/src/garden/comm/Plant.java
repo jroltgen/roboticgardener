@@ -10,7 +10,23 @@ public class Plant {
 
 	public static enum Type {
 		// TODO add more of these.
-		RADISHES, CORN, TOMATOES
+		RADISHES, 
+		CORN, 
+		TOMATOES
+	}
+
+	/**
+	 * This must match the Type enum for the growing degree days for 
+	 * the respective plants.
+	 */
+	private float[] gdds = new float[] {
+		21,
+		160,
+		160
+	};
+	
+	public float getGDDHours(Type t) {
+		return gdds[t.ordinal()];
 	}
 
 	public static BufferedImage getImage(Type t) {
@@ -22,7 +38,12 @@ public class Plant {
 						"images/plants/radishcherrybellesmall.jpg"));
 				break;
 			case CORN:
+				ret = ImageIO.read(new File(
+						"images/plants/corn1.jpg"));
+				break;
 			case TOMATOES:
+				ret = ImageIO.read(new File(
+						"images/plants/tomato.jpg"));
 			default:
 				System.err.println("No plant image found for " + t);
 				System.exit(0);
