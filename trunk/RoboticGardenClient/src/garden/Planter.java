@@ -137,14 +137,13 @@ public class Planter extends JPanel {
 	}
 	
 	public void updateState(PlanterState s) {
-		/* TODO connection 
 		planterText.setText("Planter " + s.getID());
 		plantTypeText.setText(s.getPlantType().name());
 		_gdhDisplay.setProgress(s.getGdhProgress());
 		_lightDisplay.setLight(s.getLightState());
 		_moistureDisplay.setMoisture(s.getMoistureLevel());
 		_plantTypeDisplay.setPlantType(s.getPlantType());
-		_temperatureDisplay.setTemperature(s.getTemperature());*/
+		_temperatureDisplay.setTemperature(s.getTemperature());
 	}
 
 	private void replant() {
